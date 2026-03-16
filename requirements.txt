@@ -1,0 +1,29 @@
+# Core AI and ML libraries
+fastapi==0.115.0
+uvicorn[standard]==0.34.0
+python-multipart==0.0.10
+pillow>=12.1.1
+numpy
+opencv-python>=4.10.0
+
+# OCR and Document Processing
+pytesseract>=0.3.10
+easyocr>=1.7.0
+
+# Image Recognition and Computer Vision
+torch>=2.5.0
+torchvision>=0.20.0
+transformers>=4.40.0
+sentence-transformers>=3.0.0
+
+# NLP and Chatbot
+openai>=1.50.0
+langchain>=0.3.0
+langchain-community>=0.3.0
+langchain-openai>=0.2.0
+
+# Utilities
+python-dotenv==1.2.0
+pydantic-settings==2.4.0
+aiofiles==24.1.0
+python-magic==0.4.27
