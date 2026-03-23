@@ -1,27 +1,23 @@
-FROM python:3.11-slim
+FROM python:3.11
 
 # Set environment variables to avoid interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
-# Install system dependencies with better error handling
-RUN apt-get update && apt-get install -y \
-    wget \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Tesseract OCR
-RUN apt-get update && apt-get install -y \
+# Update package lists and install dependencies with retry logic
+RUN apt-get update -qq && \
+    apt-get install -y --no-install-recommends \
     tesseract-ocr \
     tesseract-ocr-eng \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install additional system dependencies
-RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libglib2.0-0 \
     libgomp1 \
+    wget \
+    curl \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
 
 WORKDIR /app
 
