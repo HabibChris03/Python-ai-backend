@@ -4,8 +4,9 @@ FROM python:3.11
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
-# Install system dependencies with better error handling and retry
-RUN apt-get update && \
+# Install system dependencies with retry logic and better error handling
+RUN set -e && \
+    apt-get update && \
     apt-get install -y --no-install-recommends \
     tesseract-ocr \
     tesseract-ocr-eng \
