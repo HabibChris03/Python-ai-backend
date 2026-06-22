@@ -11,6 +11,8 @@ pytesseract>=0.3.10
 easyocr>=1.7.0
 
 # Image Recognition and Computer Vision
+# CPU-only torch to keep build size small on Render (~200MB vs ~2.5GB for CUDA)
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch>=2.5.0
 torchvision>=0.20.0
 transformers>=4.40.0

@@ -1,5 +1,4 @@
-# Hugging Face Spaces Docker deployment
-# Read the doc: https://huggingface.co/docs/hub/spaces-sdks-docker
+# DocFinder AI Backend — Render / Docker deployment
 
 FROM python:3.11
 
@@ -41,12 +40,12 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 # Copy application code
 COPY --chown=user . /app
 
-# Expose HF Spaces required port
-EXPOSE 7860
+# Render injects $PORT at runtime (default 10000)
+EXPOSE 10000
 
-# Healthcheck
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s \
-    CMD curl -f http://localhost:7860/api/health || exit 1
+# Healthcheck using $PORT
+HEALTHCHECK --interval=30s --timeout=10s --start-period=120s \
+    CMD curl -f http://localhost:${PORT:-10000}/api/health || exit 1
 
-# Start application on port 7860
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]
+# Start — read $PORT from Render environment (fallback 10000)
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-10000}
